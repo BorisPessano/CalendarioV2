@@ -1,5 +1,8 @@
+import dynamic from 'next/dynamic';
 import React from 'react';
-import CalendarMonthView from '../Components/CalendarMonthViews';
+ 
+
+const CalendarMonthView = dynamic(()=> import('../Components/CalendarMonthView')) ;
 
 const CalendarioPage = () => {
   const currentYear = new Date().getFullYear();
