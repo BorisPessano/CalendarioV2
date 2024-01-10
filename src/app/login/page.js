@@ -1,15 +1,18 @@
 'use client'
 import Link from 'next/link'
+
 import { useRouter } from 'next/navigation'
 import styles from  './login.module.css'
 import { useState } from 'react'
 import { getLoginInfo } from '@/app/service/login'
+
 
 const Login = () =>{
 
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const router = useRouter()
+
 
     const userLogin = () => {
         if ((email != undefined || email != null) && (pass != undefined || pass != null) ){
@@ -23,6 +26,7 @@ const Login = () =>{
                 password: pass
             }
 
+
             getLoginInfo(body).then(data => {
                let sesion = localStorage.getItem('sesion')
                if (sesion != undefined){
@@ -32,7 +36,6 @@ const Login = () =>{
                else{
                 alert('hubo un problema al iniciar sesion')
                }
-            })
         }
     }
 
