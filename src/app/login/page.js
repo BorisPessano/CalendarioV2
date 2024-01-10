@@ -1,12 +1,15 @@
 'use client'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import styles from  './login.module.css'
-import { useEffect,useState } from 'react'
+import { useState } from 'react'
+import { getLoginInfo } from '@/app/service/login'
 
 const Login = () =>{
 
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+    const router = useRouter()
 
     const userLogin = () => {
         if ((email != undefined || email != null) && (pass != undefined || pass != null) ){
@@ -20,29 +23,15 @@ const Login = () =>{
                 password: pass
             }
 
-            console.log(email)
-
-            const getLoginInfo = async () => {
-                let bod = JSON.stringify(body);
-                try{
-                    const response = await fetch('https://clevendario-api.fly.dev/api/clevendario/user/login',{
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Access-Control-Allow-Origin': '*'
-                        },
-                        body: JSON.stringify(body)
-
-                    }).then((res) => {
-                        return res.json()
-                    })
-                }
-                catch(e){
-                    console.error(e)
-                }
-            }
-            getLoginInfo().then(data => {
-                console.log('data',data)
+            getLoginInfo(body).then(data => {
+               let sesion = localStorage.getItem('sesion')
+               if (sesion != undefined){
+                // redirige
+                router.push('/')
+               }
+               else{
+                alert('hubo un problema al iniciar sesion')
+               }
             })
         }
     }
