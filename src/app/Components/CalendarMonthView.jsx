@@ -51,7 +51,7 @@ const CalendarMonthView = ({ year, month, feriados }) => {
         ))}
       </div>
     );
-  };s
+  };
 
   const renderCalendar = () => {
     const weeksArray = Array.from({ length: Math.ceil(daysInMonth / 7) }, (_, index) => index * 7);
