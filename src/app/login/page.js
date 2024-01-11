@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { getLoginInfo } from '@/app/service/login'
 
 
-const Login = () =>{
+const Login = () => {
 
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
@@ -37,6 +37,7 @@ const Login = () =>{
                 alert('hubo un problema al iniciar sesion')
                }
         }
+    )}
     }
 
     return (
@@ -54,14 +55,14 @@ const Login = () =>{
                     <form className="space-y-4 md:space-y-6" action="#">
                         <div>
                             <label  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                            <input type="email" id="Email" name="email" 
+                            <input type="email" id="Email" name="email" value={email}
                             className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                             onChange={(email) => setEmail(email.target.value)}
                             />
                         </div>
                         <div>
                             <label  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                            <input type="password" id="password" name="password" className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"'
+                            <input type="password" id="password" name="password" className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"' value={pass}
                                 onChange={(password) => setPass(password.target.value)}/>
                         </div>
                         <div className="flex items-center justify-between">
