@@ -11,6 +11,7 @@ export const getLoginInfo = async (parameter) => {
 
         }).then(respuesta => respuesta.json()).then((responseData) => {
             localStorage.setItem('sesion',responseData.access_token)
+            localStorage.setItem('user',JSON.stringify(responseData.user))
             return responseData
         })
     }
