@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './CalendarMonthView.module.css';
 
 const CalendarMonthView = ({ year, month, feriados }) => {
   const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const monthName = new Date(year, month, 1).toLocaleString('default', { month: 'long' });
   const dayOfWeekLabels = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
 
   const isWeekend = (day) => {
@@ -16,13 +16,23 @@ const CalendarMonthView = ({ year, month, feriados }) => {
     return feriado ? feriado : null;
   };
 
+  const calculateRemainingDays = () => {
+    const weekdays = Array.from({ length: daysInMonth }, (_, index) => index + 1)
+      .filter((day) => !isWeekend(day))
+      .filter((day) => !isFeriado(day)).length;
+
+    const presentDays = Math.ceil(0.6 * weekdays);
+
+    return presentDays;
+  };
+
   const renderDay = (day) => {
-    const weekendStyle = isWeekend(day) ? styles.weekend : {};
+    const weekendStyle = isWeekend(day) ? 'bg-gray-200' : '';
     const feriado = isFeriado(day);
-    const feriadoStyle = feriado ? { color: 'white', backgroundColor: 'blue' } : {};
+    const feriadoStyle = feriado ? 'bg-blue-500 text-white' : '';
 
     return (
-      <div key={day} className={`${styles.day} ${weekendStyle}`} style={feriadoStyle}>
+      <div key={day} className={`border p-2 text-center ${weekendStyle} ${feriadoStyle}`}>
         {feriado ? feriado.title : day}
       </div>
     );
@@ -30,9 +40,9 @@ const CalendarMonthView = ({ year, month, feriados }) => {
 
   const renderDayLabels = () => {
     return (
-      <div className={styles.week}>
+      <div className="flex mb-2">
         {dayOfWeekLabels.map((label) => (
-          <div key={label} className={styles.weekdayLabel}>
+          <div key={label} className="flex-1 border p-2 text-center font-bold bg-gray-300">
             {label}
           </div>
         ))}
@@ -43,9 +53,9 @@ const CalendarMonthView = ({ year, month, feriados }) => {
   const renderWeek = (startDay) => {
     const weekDays = Array.from({ length: 7 }, (_, index) => startDay + index + 1);
     return (
-      <div key={startDay} className={styles.week}>
+      <div key={startDay} className="flex mb-2">
         {weekDays.map((day) => (
-          <div key={day} className={styles.day}>
+          <div key={day} className="flex-1">
             {day <= daysInMonth ? renderDay(day) : null}
           </div>
         ))}
@@ -56,9 +66,10 @@ const CalendarMonthView = ({ year, month, feriados }) => {
   const renderCalendar = () => {
     const weeksArray = Array.from({ length: Math.ceil(daysInMonth / 7) }, (_, index) => index * 7);
     return (
-      <div>
+      <div className="m-4">
+        <h2 className="text-2xl font-bold mb-2">{`${monthName} ${year}`}</h2>
         {renderDayLabels()}
-        <div className={styles.calendar}>
+        <div>
           {weeksArray.map((startDay) => renderWeek(startDay))}
         </div>
       </div>
@@ -67,8 +78,10 @@ const CalendarMonthView = ({ year, month, feriados }) => {
 
   return (
     <div>
-      <h2>{`${year} - ${month + 1}`}</h2>
-      <div className={styles.calendar}>{renderCalendar()}</div>
+      {renderCalendar()}
+      <div>
+        Remaining Days: {calculateRemainingDays()}
+      </div>
     </div>
   );
 };
