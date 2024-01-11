@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { getLoginInfo } from '@/app/service/login'
 
 
-const Login = () =>{
+const Login = () => {
 
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
@@ -37,6 +37,7 @@ const Login = () =>{
                 alert('hubo un problema al iniciar sesion')
                }
         }
+    )}
     }
 
     return (
