@@ -43,8 +43,15 @@ const Register = () => {
 
             Promise.all([getRegisterInfo(body)])
             .then((values) => {
-                //console.log(values);
-                router.push('/');
+                console.log(values[0]);
+                if (values[0] == 409){
+                    alert("User already exist!");
+                }
+                if (values[0] == 200){
+                    alert("User created!");
+                    router.push('/')
+                }
+
             })
             .catch((reason) => {
                 console.log(reason);

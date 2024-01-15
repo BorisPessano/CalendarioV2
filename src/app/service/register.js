@@ -9,19 +9,9 @@ export const getRegisterInfo = async (parameter) => {
             },
             body: JSON.stringify(body)
 
-        }).then(respuesta => {
-            console.log(respuesta.status);
-            if (respuesta.status == 409){
-                alert("User already exist!")
-                return 409;
-            }
-            if (respuesta.status == 200){
-                alert("Usuario creado!!");
-                return 200;
-            }
-            //alert("res");
-            return respuesta
         })
+        console.log(response);
+        return response.status;
     }
     catch(e){
         console.log(e);
