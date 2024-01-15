@@ -5,8 +5,12 @@
   }
   
   /* Estilos específicos para el modo oscuro */
-  .dark-mode{
-    background-color: #1a202c;
-    color: #cbd5e0;
-    /* Otros estilos para el modo oscuro */
+.dark-mode{
+  background-color: #1a202c;
+  color: #cbd5e0;
+  /* Otros estilos para el modo oscuro */
+}
+
+  .md-register {
+      height: auto !important;
   }

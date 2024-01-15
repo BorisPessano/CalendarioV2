@@ -1,7 +1,7 @@
 export const getRegisterInfo = async (parameter) => {
     let body = parameter;
     try{
-        const response = await fetch('https://clevendario-api.fly.dev/api/clevendario/user/',{
+        const response = await fetch('http://localhost:6001/api/clevendario/user/',{ //https://clevendario-api.fly.dev
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -9,18 +9,24 @@ export const getRegisterInfo = async (parameter) => {
             },
             body: JSON.stringify(body)
 
-        }).then(respuesta => respuesta.json()).then((responseData) => {
-            if(!responseData.message){
-                alert("Usuario creado");
-            }else{
-                alert("Este correo ya esta registrado")
+        }).then(respuesta => {
+            console.log(respuesta.status);
+            if (respuesta.status == 409){
+                alert("User already exist!")
+                return 409;
             }
-            return responseData
+            if (respuesta.status == 200){
+                alert("Usuario creado!!");
+                return 200;
+            }
+            //alert("res");
+            return respuesta
         })
     }
     catch(e){
-        console.log(e)
-        return e
+        console.log(e);
+        alert(e);
+        return e;
     }
 }
 

@@ -11,7 +11,7 @@ const Register = () => {
 
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
-    const [role, setRole] = useState('');
+    const [role, setRole] = useState(1);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [phone, setPhone] = useState('');
@@ -19,6 +19,7 @@ const Register = () => {
 
 
     const userRegister = () => {
+
         if ((name != undefined || name != null) && 
             (surname != undefined || surname != null) &&
             (role != undefined || role != null) &&
@@ -37,20 +38,19 @@ const Register = () => {
                 email: email,
                 password:password,
                 phone:phone,
-                role: role,
+                role: parseInt(role),
             }
 
-
-            getRegisterInfo(body).then(data => {
-               let sesion = localStorage.getItem('sesion')
-               if (sesion != undefined){
-                // redirige
-                router.push('/')
-               } else {
-                alert('hubo un problema')
-               }
-            }
-        )} else {
+            Promise.all([getRegisterInfo(body)])
+            .then((values) => {
+                //console.log(values);
+                router.push('/');
+            })
+            .catch((reason) => {
+                console.log(reason);
+            });
+            
+        } else {
             alert('hubo un problema ')
         }
     }
@@ -58,7 +58,7 @@ const Register = () => {
     return (
         <div className={styles.body}>
         <section className="bg-gray-50 dark:bg-gray-1400">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto  lg:py-0 ">
             <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                 CleverIT    
             </a>
@@ -88,7 +88,7 @@ const Register = () => {
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rol:</label>
                             <select id="role" value={role} onChange={(role) => setRole(role.target.value)}
                             className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
-                                <option value="1">Desarrollador</option>
+                                <option value="1" selected>Desarrollador</option>
                                 <option value="2">Programador</option>
                             </select>
                         </div>
