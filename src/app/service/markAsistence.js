@@ -1,6 +1,7 @@
-export const getLoginInfo = async (parameter) => {
+export const markAsistence = async (parameter) => {
     let body = parameter;
-    const response = await fetch('https://clevendario-api.fly.dev/api/clevendario/user/login',{
+
+    const response = await fetch('https://clevendario-api.fly.dev/api/clevendario/action',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -12,4 +13,3 @@ export const getLoginInfo = async (parameter) => {
 
     return response
 }
-

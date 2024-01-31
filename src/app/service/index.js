@@ -1,0 +1,1 @@
+export {getLoginInfo} from './login'
